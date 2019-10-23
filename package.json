@@ -1,0 +1,28 @@
+{
+  "name": "mytube-api",
+  "version": "0.1.0",
+  "description": "GraphQL API for uploading videos",
+  "main": "index.js",
+  "repository": "https://github.com/Arit143/mytube-api.git",
+  "author": "Aritra Ghosh",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start:dev": "TS_NODE_PROJECT='./tsconfig.json' ts-node-dev  --inspect --respawn ./src src/index.ts",
+    "lint": "eslint 'src/*.ts'",
+    "lint:fix": "eslint --fix 'src/*.ts'"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.9.7",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.5.1",
+    "ts-node-dev": "^1.0.0-pre.43",
+    "typescript": "^3.6.4"
+  }
+}
