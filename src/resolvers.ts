@@ -1,30 +1,15 @@
 import { IResolvers } from 'graphql-tools';
-import { ApolloError } from 'apollo-server-core';
-import { createWriteStream } from 'fs';
-import path from 'path';
+
+import getFileDetails from './query/getFileDetails';
+import uploadFile from './mutation/uploadFile';
 
 const resolvers: IResolvers = {
-    Query: {
-      files: (): [] => []
-    },
-    Mutation: {
-      uploadFile: async (parent, { file }) => {
-        try {
-          const { createReadStream, filename } = await file;
-  
-          const response = await new Promise((resolve, reject) =>
-            createReadStream()
-              .pipe(createWriteStream(path.join(__dirname, "../videos", filename)))
-              .on("close", resolve)
-              .on("error", reject)
-          );
-  
-          console.log(response);
-        } catch (err) {
-          throw new ApolloError('unexpected error occured', err);
-        }
-      }
-    }
+  Query: {
+    files: getFileDetails
+  },
+  Mutation: {
+    uploadFile
   }
+}
 
-  export default resolvers;
+export default resolvers;

@@ -1,0 +1,23 @@
+{
+  "transform": {
+    "^.+\\.ts?$": "ts-jest"
+  },
+  "testRegex": "spec\\.ts$",
+  "collectCoverageFrom": [
+    "src/**/*.{ts}"
+  ],
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "globals": {
+    "ts-jest": {
+      "diagnostics": false,
+      "tsConfig": "<rootDir>/tsconfig.jest.json"
+    }
+  },
+  "modulePaths": [
+    "<rootDir>"
+  ]
+}

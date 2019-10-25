@@ -9,19 +9,31 @@
   "private": false,
   "scripts": {
     "start:dev": "TS_NODE_PROJECT='./tsconfig.json' ts-node-dev  --inspect --respawn ./src src/index.ts",
+    "test": "jest --detectOpenHandles --config='./jest.config.integration.json' src/integration-tests",
     "lint": "eslint 'src/*.ts'",
     "lint:fix": "eslint --fix 'src/*.ts'"
   },
   "dependencies": {
     "apollo-server-express": "^2.9.7",
+    "bunyan": "^1.8.12",
     "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.5"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.6",
+    "@types/fluent-ffmpeg": "^2.1.11",
+    "@types/jest": "^24.0.19",
+    "@types/node-fetch": "^2.5.2",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
     "eslint": "^6.5.1",
+    "form-data": "^2.5.1",
+    "graphql-request": "^1.8.2",
+    "jest": "^24.9.0",
+    "node-fetch": "^2.6.0",
+    "ts-jest": "^24.1.0",
     "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.6.4"
   }

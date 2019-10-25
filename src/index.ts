@@ -1,33 +1,47 @@
 import express from "express";
+import { ApolloServer } from "apollo-server-express";
+
 import path from "path";
 import { mkdir } from 'fs';
-import { ApolloServer } from "apollo-server-express";
+import { promisify } from 'util';
+import bunyan from 'bunyan';
 
 import typeDefs from './typedefs';
 import resolvers from './resolvers';
+import StreamController from './stream.controller';
 
-const start = (): void => {
+const asyncMkDir = promisify(mkdir);
+const logger = bunyan.createLogger({ name: 'app' });
+
+const start = async (): Promise<void | Error> => {
   try {
-    mkdir(path.join(__dirname, "../videos"), { recursive: true }, (err) => {
-      if (err) {
-        console.log(`Error creating directory: ${err}`);
-        throw new Error('video upload directory cannot be created');
-      }
-    })
-    
+    await asyncMkDir(path.join(__dirname, "../videos/thumbnails"), { recursive: true });
+
+    logger.info('video and thumbnail folder created');
+
     const server = new ApolloServer({ typeDefs, resolvers });
     const app = express();
 
-    app.use("/videos", express.static(path.join(__dirname, "../videos")));
+    /**
+     * Serve static images for thumbnails
+     */
+    app.use("/videos/thumbnails", express.static(path.join(__dirname, "../videos/thumbnails")));
+    /**
+     * Controller to stream video content
+     */
+    app.get("/stream/:id", StreamController);
 
+    /**
+     * Express as a middleware for apollo server
+     */
     server.applyMiddleware({ app });
 
     app.listen(4000, () => {
-      console.log(`🚀 Server ready at http://localhost:4000/`);
+      logger.info(`🚀 Server ready at http://localhost:4000/`);
     });
 
   } catch (err) {
-    console.log('app error occured');
+    logger.error('app error occured', err);
     return err;
   }
 }
