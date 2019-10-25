@@ -13,7 +13,7 @@ const fileStat = promisify(stat);
  * @param res 
  * @param next 
  */
-const StreamController = async (req: Request, res: Response, next: NextFunction) => {
+const StreamController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     logger.info('request for streaming', req.params.id);
     const filePath: string = path.join(__dirname, `../videos/${req.params.id}`);

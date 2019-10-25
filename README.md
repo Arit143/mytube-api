@@ -15,6 +15,8 @@ For Linux follow the below link
 https://itsfoss.com/ffmpeg/
 ```
 
+Then install
+
 ```
 rm -rf node_modules
 npm ci
